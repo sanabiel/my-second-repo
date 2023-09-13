@@ -1,6 +1,83 @@
-<h1>Shoptheflop List Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SHOPTHEFLOP</title>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      margin: 0;
+      padding: 1;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #4e1010;
+      color: white;
+      text-align: center;
+      padding: 1%;
+    }
+    .container {
+      padding: 10px;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      table-layout: auto ;
+    }
+    table, th, td {
+      border: 2px solid rgb(255, 255, 255);
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    tr {
+      padding: 2px;
+      background-color: #f532a4;
+      text-align: center;
+    }
+    th {
+      background-color: #dae01e;
+      color: rgb(0, 0, 0);
+    }
+    td {
+      background-color: #EAE3D2;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SHOPTHEFLOP</h1>
+    <p>Nabiel Ahmad</p>
+    <p>PBP F</p>
 
-<h5>Name: </h5>
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+  </header>
+
+  <div class="container">
+    <h2>Daftar Produk</h2>
+    <h2>13/09/2023</h2>
+    <table>
+      <tr>
+        <th>Nama Barang</th>
+        <th>Deskripsi</th>
+        <th>Jumlah</th>
+        <th>Promo</th>
+        <th>Harga</th>
+      </tr>
+
+      {% for item in item_inventory %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.promo }}</td>
+        <td>{{ item.price }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+</html>
