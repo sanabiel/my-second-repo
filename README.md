@@ -1,4 +1,4 @@
-1-------------
+1.--------------
 - Untuk membuat projek django baru yang pertama dilakukan adalah membuka terminal dan menulis perintah "django-admin startproject nama_proyek". Dengan dijalankan perintah tersebut, Django akan membuat struktur awal "main" di direktori.
 - lalu lanjut di terminal yang sama dan menjalan "python manage.py startapp main" setelah itu akan terbentuk direktori baru bernama main
 - Untuk melakukan routing proyek, kita membuka urls.py di direktori main. lalu menuliskan kode "
@@ -15,20 +15,27 @@ kode tersebut mengkonfigurasi URL pattern untuk aplikasi "main" dalam proyek Dja
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
+    description = models.TextField()
     amount = models.IntegerField()
-    description = models.TextField()"
+    promo = models.CharField(max_length=255)
+    price = models.IntegerField()
 
 Kode tersebut berupa model django berupa product. name berupa charfield dimana menyimpan text. amount menyimpan bilangan bulat. description menyimpan text panjang yang tidak terbatas. Lalu kita jalankan perintah migrasi untuk membuat tabel database.
 - pertama-tama buka views.py pada direktori main dan tulis kode "
-from django.shortcuts import render
 def show_main(request):
     context = {
-        'name': 'Pak Bepe',
-        'class': 'PBP A'
+        'item_inventory' : [
+            {
+                'name': 'Piring The Flop',
+                'description': 'Piring yang lansung dibuat dari Norwegia pembawa kekuatan',
+                'amount': '5',
+                'promo' : 'FLASH SALE 50%',
+                'price': '1000000'  
+            },
+        ],
     }
-
     return render(request, "main.html", context)"
-"from django.shortcuts import render" berfungsi untuk mengimpor fungsi render. contexr akan menyimpan dictionary yang nantinya akan dikirimkan ke tampilan. Lalu "return render(request, "main.html", context)" akan merender tampilan tersebut pada main.html
+"from django.shortcuts import render" berfungsi untuk mengimpor fungsi render. contexr akan menyimpan dictionary yang nantinya akan dikirimkan ke tampilan. Lalu "return render(request, "main.html", context)" akan merender tampilan tersebut pada main.html. Untuk isi item_inventory disesuaikan dengan isi tabel, dimana kita mengisi tiap variabel dengan apa yang ingin dikeluarkan di tabel.
 - Buka urls.py dalam direktori proyek di shoptheflop dan menambahkan fungsi include dan rute url untuk mengarahkan ke tampilan main.
 - Untuk mendeploy pertama menekan new app lalu mengubungkan dengan respitory github, lalu memilih template python dan basis data postgreSQL dan lalu mendeploy. Setelah berhasil aplikasi sudah dapat dibuka.
 
