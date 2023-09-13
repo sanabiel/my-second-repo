@@ -40,14 +40,13 @@ def show_main(request):
 - Untuk mendeploy pertama menekan new app lalu mengubungkan dengan respitory github, lalu memilih template python dan basis data postgreSQL dan lalu mendeploy. Setelah berhasil aplikasi sudah dapat dibuka.
 
 2-------------
-<img src="/bagan.jpg"
+<img src="//Untitled (2).png">
 
 File urls.py berfungsi sebagai penghubung antara URL yang diminta oleh klien dengan fungsi view yang sesuai. Ini adalah bagian yang menentukan bagaimana URL akan dipetakan ke tindakan tertentu dalam aplikasi. Di sisi lain, views.py berperan sebagai pengendali utama dalam aplikasi Django. Fungsi-fungsi view dalam berkas ini memproses permintaan yang datang dari klien. Mereka juga berfungsi sebagai perantara antara model dan templat HTML. file models.py, yang terletak dalam direktori memiliki peran  dalam mendefinisikan struktur data yang akan disimpan dalam database. Model-model ini digunakan untuk merepresentasikan entitas seperti pengguna, produk, atau catatan lainnya, serta mendefinisikan bidang yang akan menyimpan data terkait. Model-model ini menjadi dasar untuk operasi database dalam Django, seperti migrasi schema dan pengambilan data.Terakhir, template HTML berfungsi sebagai kerangka dasar untuk menghasilkan halaman web yang akan diberikan kepada klien. Dalam template, akan digabungkan logika tampilan dengan data yang dikirimkan oleh view sehingga dapat menampilkan informasi dinamis kepada pengguna. Template dapat mengakses data dari model atau objek lain yang diteruskan oleh view sebagai konteks.
 
 Dengan sinergi antara urls.py, views.py, models.py, dan templat HTML, aplikasi Django menjadi kuat dan fleksibel dalam mengelola permintaan klien dan menyajikan data dengan cara yang sesuai.
 
 3-------------
-Untitled (1) <img src="Untitled (2).png">
 Virtual environment adalah suatu platform atau wadah yang digunakan oleh Django untuk menjalankan aplikasi. Fungsi utama dari virtual environment adalah memungkinkan kita untuk menginstal serta mengelola berbagai paket Python yang diperlukan oleh aplikasi kita secara terpisah dari paket Python global yang terdapat di sistem operasi. Dengan cara ini, kita dapat menghindari potensi konflik versi atau masalah dependensi antara aplikasi yang berbeda.
 
 Meskipun memungkinkan untuk membuat aplikasi web berbasis Django tanpa menggunakan virtual environment, praktik ini tidak disarankan. Tanpa virtual environment, kita diharuskan menginstal semua paket Python yang dibutuhkan oleh aplikasi secara langsung ke sistem operasi kita. Hal ini dapat menimbulkan masalah kompatibilitas atau keamanan, terutama jika aplikasi lain juga membutuhkan paket Python yang sama. Oleh karena itu, penggunaan virtual environment sangat disarankan agar kita dapat mengisolasi dan mengelola dependensi aplikasi dengan lebih baik.
