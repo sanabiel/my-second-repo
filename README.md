@@ -91,7 +91,7 @@ JSON mempermudah penerjemahan data ke bahasa manusia. Meskipun komputer hanya da
 - Sederhana dan terstrukut
 JSON membawa format yang lebih terstruktur, memudahkan pencarian dan modifikasi kode. Dengan ini, pengguna hanya perlu memasukkan teks dalam bahasa yang mereka pahami, memudahkan proses pengembangan.
 
-4.
+4.a
 
 Referensi
 https://id.natapa.org/difference-between-xml-and-json-2447
