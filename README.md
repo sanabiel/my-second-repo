@@ -93,6 +93,24 @@ JSON membawa format yang lebih terstruktur, memudahkan pencarian dan modifikasi 
 
 4.a
 
+
+Screenshot Postman
+1. HTML
+<img src="/ss_postman//html.jpg">
+2. JSON
+<img src="/ss_postman//json.jpg">
+3. XML
+<img src="/ss_postman//xml.jpg">
+4. JSON by id
+<img src="/ss_postman//json_id.jpg">
+5. XML by id
+<img src="/ss_postman//xml_id.jpg">
+
+
+
+
+
+
 Referensi
 https://id.natapa.org/difference-between-xml-and-json-2447
 https://midtrans.com/id/blog/json-format
