@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +10,7 @@
     body {
       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       margin: 0;
-      padding: 1;
+      padding: 2;
       background-color: #f4f4f4;
     }
     header {
@@ -48,36 +51,41 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>SHOPTHEFLOP</h1>
-    <p>Nabiel Ahmad</p>
-    <p>PBP F</p>
+    <header>
+    <h1>Shop The Flop</h1>
 
-  </header>
+    <h5>Name:</h5>
+    <p>{{name}}</p>
 
-  <div class="container">
-    <h2>Daftar Produk</h2>
-    <h2>13/09/2023</h2>
-    <table>
-      <tr>
-        <th>Nama Barang</th>
-        <th>Deskripsi</th>
-        <th>Jumlah</th>
-        <th>Promo</th>
-        <th>Harga</th>
-      </tr>
-
-      {% for item in item_inventory %}
-      <tr>
-        <td>{{ item.name }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.amount }}</td>
-        <td>{{ item.promo }}</td>
-        <td>{{ item.price }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-  </div>
-
-</body>
-</html>
+    <h5>Class:</h5>
+    <p>{{class}}</p>
+</header>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Date Added</th>
+            </tr>
+        
+            {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+        
+            {% for product in products %}
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.date_added}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <br />
+        
+        <a href="{% url 'main:create_product' %}">
+            <button>
+                Add New Product
+            </button>
+        </a>
+{% endblock content %}
