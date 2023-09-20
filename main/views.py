@@ -10,9 +10,10 @@ def show_main(request):
     products = Product.objects.all()
 
     context = {
-        'name': 'Nabiel Ahmad Ardhityo', # Nama kamu
-        'class': 'PBP F', # Kelas PBP kamu
-        'products': products
+        'name': 'Nabiel Ahmad Ardhityo',
+        'class': 'PBP F',
+        'products': products,
+        'total_products': products.__len__(),
     }
 
     return render(request, "main.html", context)
