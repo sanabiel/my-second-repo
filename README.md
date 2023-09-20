@@ -1,3 +1,4 @@
+# TUGAS 2
 1.--------------
 - Untuk membuat projek django baru yang pertama dilakukan adalah membuka terminal dan menulis perintah "django-admin startproject nama_proyek". Dengan dijalankan perintah tersebut, Django akan membuat struktur awal "main" di direktori.
 - lalu lanjut di terminal yang sama dan menjalan "python manage.py startapp main" setelah itu akan terbentuk direktori baru bernama main
@@ -63,7 +64,7 @@ Model-View-ViewModel (MVVM) adalah pola berbasis event-based pattern. Berkat ini
 
 Maka dapat disimpulkan, MVC adalah Logika Model dipisahkan dari logika tampilan View, dan logika input diurus oleh Controller. MVP adalah Evolusi dari MVC. Presenter mengelola logika input dan logika tampilan. View lebih pasif dan hanya menangani Rendering dan pengelolaan Event. Terakhir, MVVM yang mirip dengan MVP tetapi menggunakan pengikatan (binding) antara View dan ViewModel. Pada dasarnya VC, MVP, dan MVVM sebenarnya adalah pola yang sama. Perbedaannya terletak pada bagaimana mereka diimplementasikan berdasarkan batasan dalam sistem yang dikerjakan. 
 
-*README TUGAS-3*
+# TUGAS 2
 1. Form POST digunakan untuk mengirimkan data atau nilai ke server untuk diproses. Data yang dikirimkan tidak ditampilkan secara terbuka pada URL browser. Sebagai contoh, ketika ingin menyimpan atau memperbarui data di server, ,maka menggunakan form POST. Misalnya, ketika mengirimkan informasi dari formulir pendaftaran pengguna, atau ketika Anda ingin memperbarui profil pengguna. contohnya :
 if form.is_valid() and request.method == "POST":
         form.save()
@@ -91,8 +92,29 @@ JSON mempermudah penerjemahan data ke bahasa manusia. Meskipun komputer hanya da
 - Sederhana dan terstrukut
 JSON membawa format yang lebih terstruktur, memudahkan pencarian dan modifikasi kode. Dengan ini, pengguna hanya perlu memasukkan teks dalam bahasa yang mereka pahami, memudahkan proses pengembangan.
 
-4.a
+4.
+- Buat sebuah form Django yang terkait dengan model yang ingin  ditambahkan. Form ini akan digunakan sebagai wadah untuk mengambil input dari pengguna sesuai dengan struktur model yang sudah didefinisikan.contoh:
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ["name", "price", "description"]
+Lalu pada views.py di direktori main buat aplikasi untuk  menangkap data dari form, memvalidasi, dan menyimpannya ke basis data. 
+if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+kode tersebut unyuk membuat form dan mevalidasi isi input dari form tersebut. form.save() akan menyimpan data pada form. lalu akan disimpan dan akan diredirect
+Lalu pada urls.py pada main ditambahkan path baru untuk dipanggil ketika pengguna mengakses URL yang berakhir dengan path tertentu. Lalu function tersebut akan dipanggil ketika URL tersebut di akses. Lalu buat juga berkas HTML untuk menampilkan halaman saat menambahkan produk. 
 
+Untuk mengembalikan data dalam bentuk html, json, xml, json by id, dan xml by id. Maka diperlukan untuk mengimport  HTTPResponse dan Serializer. HttpResponse adalah kelas yang digunakan untuk menghasilkan tanggapan HTTP yang akan dikirimkan kembali ke pengguna atau klien yang melakukan permintaan. Serializer adalah komponen yang digunakan dalam Django REST framework untuk mengubah objek Python menjadi bentuk data yang dapat di-serialize, seperti JSON, dan sebaliknya. Langkah akhir dari penanganan rute, kita akan melakukan routing seluruh fungsi yang telah dibuat sebelumnya. Kita dapat memasukkan import yang diperlukan ke dalam berkas views.py, dan kemudian menambahkan beberapa rute baru untuk memanggil fungsi melalui URL. Berikut adalah isi dari urls.py
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'), 
+    path('json/', show_json, name='show_json'), 
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),   
+]
 
 Screenshot Postman
 1. HTML
