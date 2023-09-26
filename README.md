@@ -64,7 +64,7 @@ Model-View-ViewModel (MVVM) adalah pola berbasis event-based pattern. Berkat ini
 
 Maka dapat disimpulkan, MVC adalah Logika Model dipisahkan dari logika tampilan View, dan logika input diurus oleh Controller. MVP adalah Evolusi dari MVC. Presenter mengelola logika input dan logika tampilan. View lebih pasif dan hanya menangani Rendering dan pengelolaan Event. Terakhir, MVVM yang mirip dengan MVP tetapi menggunakan pengikatan (binding) antara View dan ViewModel. Pada dasarnya VC, MVP, dan MVVM sebenarnya adalah pola yang sama. Perbedaannya terletak pada bagaimana mereka diimplementasikan berdasarkan batasan dalam sistem yang dikerjakan. 
 
-# TUGAS 2
+# TUGAS 3
 1. Form POST digunakan untuk mengirimkan data atau nilai ke server untuk diproses. Data yang dikirimkan tidak ditampilkan secara terbuka pada URL browser. Sebagai contoh, ketika ingin menyimpan atau memperbarui data di server, ,maka menggunakan form POST. Misalnya, ketika mengirimkan informasi dari formulir pendaftaran pengguna, atau ketika Anda ingin memperbarui profil pengguna. contohnya :
 if form.is_valid() and request.method == "POST":
         form.save()
@@ -128,13 +128,52 @@ Screenshot Postman
 5. XML by id
 <img src="/ss_postman//xml_id.jpg">
 
-
-
-
-
-
 Referensi
 https://id.natapa.org/difference-between-xml-and-json-2447
 https://midtrans.com/id/blog/json-format
 
+# TUGAS 4
+## 1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+Django UserCreationForm adalah sebuah form yang digunakan untuk membuat pengguna baru yang dapat menggunakan aplikasi sebuah web. Form ini memiliki tiga bidang, yaitu username, password ke-1, dan password ke-2 yang merupakan konfirmasi password ke-1 Untuk menggunakan UserCreationForm, maka diperlukan untuk mengimpornya dari django.contrib.auth.forms
+# Kelebihan 
+- Form ini sudah disediakan oleh Django, sehingga tidak perlu membuatnya dari awal.
+- Form ini sudah memiliki validasi dan sanitasi data yang diperlukan, sehingga kita tidak perlu khawatir tentang keamanan dan integritas data.
+- Form ini sudah terintegrasi dengan sistem autentikasi Django, sehingga kita dapat dengan mudah mengatur hak akses dan profil pengguna.
+-  Form ini terkait erat dengan model User yang sudah ada di Django, sehingga memudahkan penyimpanan informasi pengguna ke dalam database.
+- Formulir ini terhubung dengan model User bawaan Django sehingga  proses penyimpanan data pengguna ke dalam database menjadi lebih mudah
+
+# Kekurangan
+- Form tidak memiliki tampilan yang menarik atau sesuai dengan tema aplikasi, sehingga perlu mengubahnya dengan CSS atau template.
+- UserCreationForm tidak memiliki bidang email bawaan. Akibatnya, user tidak dapat menggunakannya untuk mengirim verifikasi email kepada pengguna guna memverifikasi akun.
+
+## 2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+
+Autentikasi merupakan langkah untuk memvalidasi identitas pengguna yang hendak mengakses aplikasi web Django. Django telah menyediakan sistem autentikasi terintegrasi yang dapat mengurus berbagai hal, seperti registrasi pengguna, proses login, logout, pengaturan kata sandi, dan aspek lainnya.
+
+Otorisasi adalah proses menentukan apa yang dapat dilakukan pengguna yang terotentikasi di aplikasi web Django. Django menyediakan sistem otorisasi bawaan yang dapat menangani hal-hal seperti pembatasan akses berdasarkan peran pengguna , izin objek, dan grup pengguna.
+
+Kedua konsep, autentikasi dan otorisasi, memiliki peran penting dalam mempertinggi keamanan dan fungsionalitas aplikasi web Django. Autentikasi, misalnya, memiliki dampak positif pada keamanan aplikasi dengan membatasi akses ke platform hanya kepada pengguna yang telah terdaftar dan terotentikasi dengan benar. Hal ini membantu mencegah kemungkinan serangan dari pihak-pihak yang tidak sah atau berpotensi berbahaya.
+
+Di sisi lain, otorisasi memungkinkan pengembang untuk mengontrol dan mengelola tingkat akses pengguna dengan lebih rinci. Pengguna yang berbeda bisa memiliki akses yang berbeda sesuai dengan peran dan tanggung jawab mereka dalam aplikasi web Django. Misalnya, seorang administrator dapat memiliki akses penuh untuk mengelola dan memodifikasi data, sementara pengguna biasa mungkin hanya memiliki akses untuk melihat atau memperbarui profil pribadi mereka.
+
+## 3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+
+Cookies adalah bagian penting dari penggunaan internet modern. Ketika mengunjungi sebuah situs web, cookies diciptakan dan disimpan di perangkat user melalui browser web. Tugas utamanya adalah menyimpan informasi tertentu tentang aktivitas user, preferensi, atau interaksi dengan situs web tersebut. Ini memungkinkan situs web untuk mengenal user secara lebih baik dan memberikan pengalaman yang dipersonalisasi. Misalnya, cookies dapat mengingat pilihan bahasa atau tema yang user pilih, menyimpan produk di keranjang belanja, atau bahkan memastikan user tetap masuk ke akun user saat user berpindah halaman. Namun, perlu diingat bahwa penggunaan cookies harus sejalan dengan kebijakan privasi dan keamanan yang berlaku, serta memberikan kontrol kepada pengguna untuk menerima atau menolak penggunaan cookies.
+
+## 4.Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Pemanfaatan cookies dalam pengembangan web membawa sejumlah keuntungan dan risiko yang perlu dipertimbangkan dengan cermat. Pada dasarnya, cookies tidak dianggap sebagai ancaman serius terhadap privasi dan keamanan website karena tidak menyimpan data pribadi secara langsung (meskipun terkadang dapat menyimpan nomor kartu kredit dan alamat IP) dan tidak dapat digunakan untuk menyebarkan malware atau virus1. Namun, terdapat risiko potensial yang perlu diwaspadai terkait penggunaan cookies:
+
+Salah satu risiko utama adalah privasi, terutama jika cookies digunakan untuk melacak aktivitas online pengguna tanpa persetujuan mereka. Cookies pihak ketiga, yang dimiliki oleh domain yang berbeda dari yang dijelajahi oleh pengguna, sering digunakan untuk tujuan pelacakan, iklan, dan analitik. Praktik ini dapat mengancam privasi pengguna dan meningkatkan risiko serangan phishing atau spam234.
+
+Keamanan cookies menjadi isu penting karena penyimpanannya dalam bentuk teks. Hal ini membawa potensi risiko keamanan, di mana sebagian orang dapat membuka dan mengubah pengaturan cookies. Dampaknya bisa mencakup pencurian identitas, akses tanpa izin ke akun pengguna, atau manipulasi data sesi35.
+
+Perlu diingat bahwa cookies tidak akan dapat berfungsi jika tingkat keamanan browser diatur tinggi. Ini dapat mengganggu kinerja situs web yang bergantung pada cookies untuk menyimpan preferensi pengguna, data sesi, atau informasi lain yang memperkaya pengalaman pengguna. Sehingga, penyeimbangan antara keamanan dan fungsionalitas situs web perlu diperhatikan dengan bijak.
+
+
+
+
+
+## REFERENSI
+https://dev.to/balt1794/registration-page-using-usercreationform-django-part-1-21j7
+https://www.niagahoster.co.id/blog/cookies-adalah/
 
