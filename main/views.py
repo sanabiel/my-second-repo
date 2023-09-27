@@ -90,3 +90,27 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+def increase_amount(request, id):
+    product = Product.objects.filter(user=request.user).filter(pk=id).first()
+    # "+1" Button clicked --> Increment amount by 1
+    product.amount += 1
+    product.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def decrease_amount(request, id):
+    product = Product.objects.filter(user=request.user).filter(pk=id).first()
+    # "-1" Button clicked --> Decrement amount by 1
+    if (product.amount > 0): 
+            product.amount = product.amount - 1
+            product.save()
+    if product.amount == 0: # jika produk sudah habis = delete
+            product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+        
+    # "Delete Product" Button clicked --> Delete the product
+def delete_product(request, id):
+    product = Product.objects.filter(user=request.user).filter(pk=id).first()
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+

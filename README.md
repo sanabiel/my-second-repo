@@ -161,19 +161,32 @@ Di sisi lain, otorisasi memungkinkan pengembang untuk mengontrol dan mengelola t
 Cookies adalah bagian penting dari penggunaan internet modern. Ketika mengunjungi sebuah situs web, cookies diciptakan dan disimpan di perangkat user melalui browser web. Tugas utamanya adalah menyimpan informasi tertentu tentang aktivitas user, preferensi, atau interaksi dengan situs web tersebut. Ini memungkinkan situs web untuk mengenal user secara lebih baik dan memberikan pengalaman yang dipersonalisasi. Misalnya, cookies dapat mengingat pilihan bahasa atau tema yang user pilih, menyimpan produk di keranjang belanja, atau bahkan memastikan user tetap masuk ke akun user saat user berpindah halaman. Namun, perlu diingat bahwa penggunaan cookies harus sejalan dengan kebijakan privasi dan keamanan yang berlaku, serta memberikan kontrol kepada pengguna untuk menerima atau menolak penggunaan cookies.
 
 ## 4.Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
-Pemanfaatan cookies dalam pengembangan web membawa sejumlah keuntungan dan risiko yang perlu dipertimbangkan dengan cermat. Pada dasarnya, cookies tidak dianggap sebagai ancaman serius terhadap privasi dan keamanan website karena tidak menyimpan data pribadi secara langsung (meskipun terkadang dapat menyimpan nomor kartu kredit dan alamat IP) dan tidak dapat digunakan untuk menyebarkan malware atau virus1. Namun, terdapat risiko potensial yang perlu diwaspadai terkait penggunaan cookies:
+Pada dasarnya, cookies tidak dianggap sebagai ancaman serius terhadap privasi dan keamanan website karena tidak menyimpan data pribadi secara langsung (meskipun terkadang dapat menyimpan nomor kartu kredit dan alamat IP) dan tidak dapat digunakan untuk menyebarkan malware atau virus. Namun, terdapat risiko potensial yang perlu diwaspadai terkait penggunaan cookies.
 
 Salah satu risiko utama adalah privasi, terutama jika cookies digunakan untuk melacak aktivitas online pengguna tanpa persetujuan mereka. Cookies pihak ketiga, yang dimiliki oleh domain yang berbeda dari yang dijelajahi oleh pengguna, sering digunakan untuk tujuan pelacakan, iklan, dan analitik. Praktik ini dapat mengancam privasi pengguna dan meningkatkan risiko serangan phishing atau spam234.
 
-Keamanan cookies menjadi isu penting karena penyimpanannya dalam bentuk teks. Hal ini membawa potensi risiko keamanan, di mana sebagian orang dapat membuka dan mengubah pengaturan cookies. Dampaknya bisa mencakup pencurian identitas, akses tanpa izin ke akun pengguna, atau manipulasi data sesi35.
+Keamanan cookies menjadi isu penting karena penyimpanannya dalam bentuk teks. Hal ini membawa potensi risiko keamanan, di mana sebagian orang dapat membuka dan mengubah pengaturan cookies. Dampaknya bisa mencakup pencurian identitas, akses tanpa izin ke akun pengguna, atau manipulasi data.
 
 Perlu diingat bahwa cookies tidak akan dapat berfungsi jika tingkat keamanan browser diatur tinggi. Ini dapat mengganggu kinerja situs web yang bergantung pada cookies untuk menyimpan preferensi pengguna, data sesi, atau informasi lain yang memperkaya pengalaman pengguna. Sehingga, penyeimbangan antara keamanan dan fungsionalitas situs web perlu diperhatikan dengan bijak.
 
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+Untuk pengimpletasian fungsi registrasi, maka akan menggunakan UserCreationForm untuk pembuatan formulir. Pada views.py dibuat dulu userCreationForm nya lalu divalidasi dan disimpan. Setelah itu ditambahkan register.html dan tambahkan path url tersebut. 
 
+Untuk pengimpletasian fungsi login, pertama kita mengimport authenticate yang digunakan untuk melakukan autentikasi dan login jika autentikasi berhasil. Lalu kita tinggak merequest untuk usernama dan password untuk di autentikasi pada login. Lalu buat login.html dan tambahkan url path nya. 
 
+Untuk Logout maka akan digunakan sebuah fungsi log_out yang akan menerima parameter request. Saat fungsi menerima request maka sesi pengguna akan dihapus. 
 
+Untuk membuat akun kita pertama-pertama registrasi dahulu, setelah diarahkan ke halaman registrasi isi username dan password dua kali. Setelah berhasil, maka akan diarahkan ke halaman untama. Untuk menambahkan produk kita tinggal menekan button "Add New Product" dan tulis nama, harga, dan deskripsi produk. Setelah selesai menambahkan produk maka poduk tersebut akan muncul di halaman main. Untuk keluar halaman, tinggal memencet button logout dan akan kembali ke halaman login. Jika ingin membuat akun lagi, ulangi lagi langkah-langkah tersebut dari awal dan jika ingin login kembali akun yang tadi, maka tinggal login dengan username dan password yang sudah dibuat. 
+
+Untuk menghubungkan antara model product dengan user, di models.py ditambahkan "from django.contrib.auth.models import User" untuk mengelola data user dalam sistem autentikasi dan otorisasi. Lalu kita tambahkan potongan ForeignKey yang digunakan untuk menghubungkan satu produk dengan satu user melalui sebuah relationship. Kemudian, dalam views.py pada fungsi create_product, diterapkan parameter commit=False. Fungsi ini berperan untuk menghindari Django dari menyimpan objek yang dibuat dari formulir langsung ke database. Pengguna akan mengisi bidang pengguna (user) dengan objek User yang berasal dari nilai pengembalian request.user yang saat ini diotorisasi. Hal ini bertujuan untuk menunjukkan bahwa objek tersebut dimiliki oleh pengguna yang sedang masuk. Lalu pada show_main menambahkan Product.objects.filter(user=request.user) untuk mengumpulkan objek Product yang sesuai dengan pengguna yang sedang masuk, dan hasil ini akan disimpan dalam variabel dan lalu ditampilkan. Setelah selelsai tinggal memlakukan migrasi model.
+
+Untuk menambahkan detail infomasi pengguna yang sedang logged in kita bisa menggunakan inspect elemen pada browser. Setelah membuka browser ke bagian application, maka cookie akan terlihat. 
+
+## BONUS
+untuk membuat bonus pertama-tama di views, saya menambahkan fungsi untuk menambah, mengurangi, dan menghapus produk. Untuk menambahkan, product tinggal dibuat =+ 1, untuk mengurangi -= 1, dan untuk menghapus menggunakan product.delete. Lalu kita melakukan routing untuk fungsi yang ada di views. Terakhir, di main.html kita tambahkan button untuk tambah, kurang, dan hapus produk.
 
 ## REFERENSI
 https://dev.to/balt1794/registration-page-using-usercreationform-django-part-1-21j7
 https://www.niagahoster.co.id/blog/cookies-adalah/
+
 
