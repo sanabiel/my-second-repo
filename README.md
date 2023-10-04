@@ -189,4 +189,64 @@ untuk membuat bonus pertama-tama di views, saya menambahkan fungsi untuk menamba
 https://dev.to/balt1794/registration-page-using-usercreationform-django-part-1-21j7
 https://www.niagahoster.co.id/blog/cookies-adalah/
 
+# TUGAS 5
+## 1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+Berikut adalah manfaat-manfaat dari element-elemen selector dan kapan untuk menggunakannya
+- Element Selector
+    Penggunaan Element Selector berdasarkan pada nama elemen HTML tersebut. Pemilih elemen ditulis dengan hanya menggunakan nama elemen HTML tanpa ada tambahan tanda seperti titik (.) atau pagar (#). Element selector memungkinkan untuk dapat menerapkan gaya secara global pada semua elemen dengan tipe tertentu. Element selector juga sangat sederhana dan intuitif, hanya perlu menentukan nama elemen dan mendefinisikan properti serta nilainya. Element selector membantu mengurangi pengulangan kode gaya di CSS, khususnya untuk elemen yang umum di situs web, seperti paragraf atau heading. Elemen Selector berguna ketika  ingin menerapkan gaya umum pada sekelompok elemen dengan tipe yang sama. Misalnya, saat ingin menerapkan gaya tertentu pada semua paragraf dalam halaman web atau pada semua elemen heading. 
+- Class Selector
+    Class Selector digunakan untuk memilih elemen HTML berdasarkan kelas yang diberikan pada elemen tersebut. Kelas dinyatakan dengan menggunakan tanda titik (.) sebelum nama kelas. Manfaat dari menggunakan class selector antara lain bisa untuk mengelompokkan elemen berdasarkan fungsionalitas atau gaya tertentu, menerapkan gaya yang sama pada banyak elemen di halaman web Anda hanya dengan memberikan kelas yang sama kepada elemen tersebut, dan memudahkan user untuk merencanakan dan menerapkan berbagai gaya dan tema secara konsisten pada elemen-elemen yang memiliki fungsionalitas atau penampilan yang mirip.
+    Class Selector biasa digunakan ketika ingin menerapkan gaya yang sama pada beberapa elemen di halaman web dan ketika Anda ingin mengelompokkan elemen dengan tampilan yang sama. 
+- ID Selector
+    ID selector dalam CSS digunakan untuk memilih dan menerapkan gaya pada elemen HTML yang memiliki atribut ID tertentu. Beberapa manfaat dalam menggunakan adalah untuk  secara spesifik memilih satu elemen HTML dengan ID unik. Lalu juga untuk membuat ancor (bookmark) dalam halaman web dan membuat link ke bagian tertentu dalam satu halaman, dengan menggunakan atribut href yang berisi tanda “#” diikuti oleh nama id. ID selector sebaiknya digunakan ketika ingin memberikan gaya khusus pada elemen HTML yang hanya ada satu pada halaman atau ketika Anda membuat link ke bagian tertentu dalam satu halaman.
+
+## 2. Jelaskan HTML5 Tag yang kamu ketahui.
+HTML5 tag adalah komponen fundamental dalam penulisan dokumen HTML versi 5, standar terbaru untuk web. Beberapa fitur-fitur utama HTML5 tag meliputi:
+
+1. HTML5 tag seperti <audio>, <video>, dan <canvas> memungkinkan integrasi multimedia seperti suara, video, dan grafik tanpa memerlukan plugin tambahan.
+2. HTML5 memperkenalkan tag-tag semantik baru seperti <article>, <section>, <header>, <footer>, <nav>, dan <aside>, yang membantu dalam mengorganisir struktur dan konten halaman web dengan lebih baik.
+3. Tag seperti <br>, <img>, atau <input> tidak memerlukan penutup (/) dan dapat digunakan tanpa masalah, namun penutupan tetap opsional.
+4. HTML5 tidak memerlukan atribut type untuk tag <script> dan <style>, karena secara default dianggap sebagai JavaScript dan CSS.
+5. HTML5 mempermudah pendeklarasian DOCTYPE dengan menggunakan <!DOCTYPE html> di awal dokumen, menggantikan pendeklarasian DOCTYPE yang panjang.
+Dengan HTML5, pengembang dapat menggunakan tag-tag yang lebih kaya fitur, lebih ekspresif, dan lebih mudah dimengerti, memungkinkan pengembangan web yang lebih dinamis dan modern.
+
+## 3. Jelaskan perbedaan antara margin dan padding.
+Perbedaan antara margin dan padding adalah sebagai berikut:
+- Margin adalah ruang kosong di sekeliling elemen HTML, sementara padding adalah ruang kosong di dalam elemen HTML.
+- Penggunaan margin adalah untuk mengatur jarak antara elemen dengan elemen lain atau tepi browser, sementara padding digunakan untuk mengatur jarak antara tepi elemen dan kontennya.
+- Margin tidak mempengaruhi dimensi dari elemen itu sendiri, sedangkan padding dapat memperbesar atau memperkecil elemen tergantung pada nilainya.
+- Pengaturan margin dapat berdampak pada tata letak keseluruhan situs web, karena dapat mengubah posisi elemen relatif terhadap elemen lain, sedangkan padding hanya mempengaruhi elemen yang memiliki padding.
+
+## 4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+Bootstrap menawarkan set class CSS dan komponen yang telah dirancang sebelumnya dengan tampilan yang cukup terstruktur dan konsisten. Ini cocok untuk proyek dengan desain tradisional yang membutuhkan kerangka kerja yang stabil dan mudah digunakan. Tailwind menganut pendekatan yang lebih “utility-first”, di mana kita membangun antarmuka dengan menggabungkan class utilitas yang lebih kecil. Ini memberikan kebebasan kreatif yang lebih besar dan memungkinkan penggunaan class yang sangat spesifik.
+
+Dalam hal fleksibilitas desain, Tailwind memberikan fleksibilitas yang lebih besar dengan pendekatan “utility-first” yang memungkinkan kita membangun desain yang sangat kustom sesuai kebutuhan. kita memiliki kendali penuh atas gaya dan tata letak dengan kombinasi class utilitas yang spesifik. Bootstrap menawarkan kerangka kerja yang relatif terstruktur dengan banyak komponen yang telah dirancang sebelumnya. Ini memberikan stabilitas dan kemudahan penggunaan, tetapi mungkin memiliki batasan dalam hal fleksibilitas desain yang unik.
+
+Untuk pemilihan penggunaannya, jika Anda ingin membangun antarmuka dengan cepat menggunakan komponen siap pakai, Bootstrap mungkin menjadi pilihan terbaik. Namun, jika Anda ingin membangun antarmuka dengan desain khusus atau ingin mengoptimalkan performa halaman web Anda, Tailwind mungkin menjadi pilihan terbaik.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+# LOGIN
+Untuk bagian login, saya menggunakan class selector dan element selector. Berikut penjelasannya untuk penggunaan class selector:
+.login: -> untuk gaya untuk elemen dengan kelas "login", termasuk warna latar belakang, padding, border-radius, dan bayangan kotak.
+.login h1: -> untuk gaya untuk elemen <h1> yang berada di dalam elemen dengan kelas "login", termasuk ukuran font, margin bawah, dan pemusatannya.
+.login table dan .login table td: -> unutk gaya untuk tabel dan sel dalam tabel yang digunakan dalam formulir login, termasuk lebar tabel dan padding untuk sel.
+.login input: -> untuk gaya untuk elemen input dalam formulir, seperti lebar, padding, border, dan border-radius.
+.login .login_btn: -> untuk gaya untuk tombol login, termasuk warna latar belakang, warna teks, ukuran font.
+.login .login_btn:hover: -> untuk gaya untuk tombol login saat digerakkan (hover), seperti perubahan warna latar belakang.
+.login .register_link: -> untuk gaya untuk tautan yang mengarah ke halaman registrasi, termasuk penataan teks dan warna.
+
+Lalu pada html saya masukan ke kode html saya dengan penjelesan sebagai berikut 
+<h1>: Menampilkan teks "LOGIN" di tengah halaman.
+<form>: Mendefinisikan formulir untuk login dengan metode POST dan aksi kosong.
+<table>: Digunakan untuk tata letak elemen-elemen form dalam bentuk tabel.
+<input>: Mendefinisikan input untuk username dan password.
+<ul>: Mendefinisikan daftar untuk pesan-pesan (messages) yang mungkin muncul.
+<li>: Mendefinisikan elemen daftar untuk setiap pesan.
+<a>: Mendefinisikan tautan untuk menuju halaman registrasi jika pengguna belum memiliki akun.
+
+## REFERENSI
+https://www.petanikode.com/css-selektor/
+https://www.malasngoding.com/belajar-css-margin-dan-padding-pada-css/
+
+    
 

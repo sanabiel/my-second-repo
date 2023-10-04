@@ -1,6 +1,9 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% load static %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,25 +64,22 @@
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Add New Product</h1>
-    <form method="POST">
-      {% csrf_token %}
-      <table class="form-table">
-        {{ form.as_table }}
-        <tr>
-          <td></td>
-          <td>
-            <input type="submit" value="Add Product" />
-          </td>
-        </tr>
-      </table>
-    </form>
-  </div>
-</body>
-
-</html>
+    <div class="container">
+      <h1>Edit Product</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <table class="form-table">
+          {{ form.as_table }}
+          <tr>
+            <td></td>
+            <td>
+              <input type="submit" value="Edit Product" />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
 
 {% endblock %}

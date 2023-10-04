@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<nav class="navbar navbar-expand-lg" style="background-color: #faa215;">
+  <div class="container">
+    <a class="navbar-brand" href="#" style="color: #f4f4f4;">
+      {{name}}
+      <span class="class">{{class}}</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:create_product' %}" style="color: white;">Add Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:logout' %}" style="color: white;">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +31,19 @@
   <title>SHOPTHEFLOP</title>
   <style>
     body {
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       margin: 0;
       padding: 2;
       background-color: #f4f4f4;
     }
     header {
-      background-color: #4e1010;
+      background-color: #3085C3;
       color: white;
       text-align: center;
       padding: 1%;
+      max-width: 50%;
+      margin: 20px auto 10px; /* Memberi jarak di bagian bawah header dan menengahkan header */
+      border-radius: 80px; /* Untuk membulatkan sudut-sudut header */
     }
     .container {
       padding: 10px;
@@ -34,6 +60,7 @@
     th, td {
       padding: 8px;
       text-align: center;
+      border-radius: 10px;
     }
     tr {
       padding: 2px;
@@ -41,26 +68,21 @@
       text-align: center;
     }
     th {
-      background-color: #dae01e;
+      background-color: #F4E869;
       color: rgb(0, 0, 0);
     }
     td {
-      background-color: #EAE3D2;
+      background-color: #FAF2D3;
       color: black;
     }
   </style>
 </head>
 <body>
     <header>
-    <h1>Shop The Flop</h1>
+    <h1>❤️Shop The Flop❤️</h1>
 
-    <h3>Kamu menyimpan {{total_products}} product pada aplikasi ini</h3>
+    <h3>Total Produk : {{ total_products }}</h3>
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
-
-    <h5>Class:</h5>
-    <p>{{class}}</p>
 </header>
     <div class="container">
         <table>
@@ -71,9 +93,7 @@
                 <th>Description</th>
                 <th>Date Added</th>
             </tr>
-        
-            {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-        
+                
             {% for product in products %}
                 <tr>
                     <td>{{product.name}}</td>
@@ -82,30 +102,32 @@
                     <td>{{product.description}}</td>
                     <td>{{product.date_added}}</td>
                     <td>
-                      <a href="{% url 'main:increase_amount' product.id %}">
-                        <button type="submit">Tambah 1</button>
-                      </a>
-                      <a href="{% url 'main:decrease_amount' product.id %}">
-                          <button type="submit">Kurangi 1</button>
-                      </a>             
-                      <a href="{% url 'main:delete_product' product.id %}">
-                          <button type="submit">Hapus Produk</button>
-                      </a>
+                      <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Edit
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'main:increase_amount' product.id %}">Tambah</a></li>
+                          <li><a class="dropdown-item" href="{% url 'main:decrease_amount' product.id %}">Kurang</a></li>
+                          <li><a class="dropdown-item" href="{% url 'main:delete_product' product.id %}">Hapus</a></li>
+                          <li><a class="dropdown-item" href="{% url 'main:edit_product' product.pk %}">Edit</a></li>
+                        </ul>
+                      </div> 
                     </td>
                 </tr>
             {% endfor %}
         </table>
-        <h5>Sesi terakhir login: {{ last_login }}</h5>
+        <h5> </h5>
+        <p class="d-inline-flex gap-1">
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Last Login
+          </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+          Sesi Terakhir login : {{ last_login }}
+          </div>
+        </div>
         <br />
-        
-        <a href="{% url 'main:create_product' %}">
-            <button>
-                Add New Product
-            </button>
-        </a>
-        <a href="{% url 'main:logout' %}">
-          <button>
-              Logout
-          </button>
         </a>
 {% endblock content %}

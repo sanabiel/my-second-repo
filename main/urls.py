@@ -6,6 +6,9 @@ from main.views import show_main, create_product, show_xml, show_json, show_xml_
 from main.views import register  
 from main.views import login_user
 from main.views import logout_user
+from main.views import edit_product
+
+
 
 
 
@@ -24,4 +27,5 @@ urlpatterns = [
     path('increase_amount/<int:id>/', increase_amount, name='increase_amount'),
     path('decrease_amount/<int:id>/', decrease_amount, name='decrease_amount'),
     path('delete_product/<int:id>/', delete_product, name='delete_product'),
+    path('edit-product/<int:id>', edit_product, name='edit_product'),
 ]
