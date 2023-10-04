@@ -227,22 +227,46 @@ Untuk pemilihan penggunaannya, jika Anda ingin membangun antarmuka dengan cepat 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 # LOGIN
 Untuk bagian login, saya menggunakan class selector dan element selector. Berikut penjelasannya untuk penggunaan class selector:
-.login: -> untuk gaya untuk elemen dengan kelas "login", termasuk warna latar belakang, padding, border-radius, dan bayangan kotak.
-.login h1: -> untuk gaya untuk elemen <h1> yang berada di dalam elemen dengan kelas "login", termasuk ukuran font, margin bawah, dan pemusatannya.
-.login table dan .login table td: -> unutk gaya untuk tabel dan sel dalam tabel yang digunakan dalam formulir login, termasuk lebar tabel dan padding untuk sel.
-.login input: -> untuk gaya untuk elemen input dalam formulir, seperti lebar, padding, border, dan border-radius.
-.login .login_btn: -> untuk gaya untuk tombol login, termasuk warna latar belakang, warna teks, ukuran font.
-.login .login_btn:hover: -> untuk gaya untuk tombol login saat digerakkan (hover), seperti perubahan warna latar belakang.
-.login .register_link: -> untuk gaya untuk tautan yang mengarah ke halaman registrasi, termasuk penataan teks dan warna.
+.login -> untuk gaya untuk elemen dengan kelas "login", termasuk warna latar belakang, padding, border-radius, dan bayangan kotak.
+.login h1 -> untuk gaya untuk elemen <h1> yang berada di dalam elemen dengan kelas "login", termasuk ukuran font, margin bawah, dan pemusatannya.
+.login table dan .login table td -> unutk gaya untuk tabel dan sel dalam tabel yang digunakan dalam formulir login, termasuk lebar tabel dan padding untuk sel.
+.login input -> untuk gaya untuk elemen input dalam formulir, seperti lebar, padding, border, dan border-radius.
+.login .login_btn -> untuk gaya untuk tombol login, termasuk warna latar belakang, warna teks, ukuran font.
+.login .login_btn:hover -> untuk gaya untuk tombol login saat digerakkan (hover), seperti perubahan warna latar belakang.
+.login .register_link -> untuk gaya untuk tautan yang mengarah ke halaman registrasi, termasuk penataan teks dan warna.
 
-Lalu pada html saya masukan ke kode html saya dengan penjelesan sebagai berikut 
-<h1>: Menampilkan teks "LOGIN" di tengah halaman.
-<form>: Mendefinisikan formulir untuk login dengan metode POST dan aksi kosong.
-<table>: Digunakan untuk tata letak elemen-elemen form dalam bentuk tabel.
-<input>: Mendefinisikan input untuk username dan password.
-<ul>: Mendefinisikan daftar untuk pesan-pesan (messages) yang mungkin muncul.
-<li>: Mendefinisikan elemen daftar untuk setiap pesan.
-<a>: Mendefinisikan tautan untuk menuju halaman registrasi jika pengguna belum memiliki akun.
+# REGISTER
+Pada bagian register saya menggunakan external register dengan membuat file register.css. Di css tersebut saya menggunakan universal selector dan class selector. Untuk universal selectornya saya menggunakan di "*" dimana mempengaruhi semua elemen pada halaman. Pada kode tersebut, digunakan untuk mengatur properti box-sizing, margin, dan padding untuk semua elemen.
+Lalu sisanya saya menggunakan class selector diantara lain :
+.login -> Class ini mempengaruhi elemen dengan class "login". Properti-properti di dalamnya akan mempengaruhi tampilan kotak login.
+.login h1 -> Class gabungan ini  mempengaruhi elemen <h1> yang berada di dalam elemen dengan class "login". Properti-properti di dalamnya akan mempengaruhi tampilan judul pada kotak login.
+.login table -> Class yang mempengaruhi elemen tabel yang berada di dalam elemen dengan class "login". Properti width diatur menjadi 100% untuk tabel tersebut.
+.login table td:first-child -> Class yang mempengaruhi sel pertama (<td>) dalam setiap baris tabel di dalam elemen dengan class "login". Properti text-align dan padding-right diatur untuk penataan teks dan jarak kanan pada sel pertama.
+.login table input -> Selector gabungan yang mempengaruhi elemen input yang berada di dalam tabel di dalam elemen dengan class "login". Properti width diatur menjadi 80% untuk input tersebut.
+.login table input[type="submit"] -> Selector gabungan yang mempengaruhi tombol submit yang berada di dalam tabel di dalam elemen dengan class "login". Properti-properti di dalamnya akan mempengaruhi tampilan tombol submit.
+.login ul -> Selector class yang mempengaruhi elemen <ul> (daftar tak bernomor) yang berada di dalam elemen dengan class "login". Properti list-style-type diatur menjadi none untuk menghilangkan penomoran pada daftar tersebut.
+
+# TAMBAH INVENTORI
+Pada create_product.html saya menggunakan element selector dan class selector. Di element selector saya menggunakannya pada "body" Selector untuk elemen <body> pada halaman HTML. Properti-properti di dalamnya akan mempengaruhi tampilan seluruh halaman. Untuk Class selector saya menggunakannya pada:
+.container -> class ini mempengaruhi elemen dengan class "container". Properti-properti di dalamnya akan mempengaruhi tampilan kontainer.
+.container h1 -> class ini mempengaruhi elemen <h1> yang berada di dalam elemen dengan class "container". Properti-properti di dalamnya akan mempengaruhi tampilan judul dalam kontainer.
+.form-table -> class yang mempengaruhi elemen dengan class "form-table". Properti-properti di dalamnya akan mempengaruhi tampilan tabel form.
+.form-table td -> Class yang mempengaruhi sel (<td>) dalam tabel form. Isi dari class ini mempengaruhi padding untuk memberikan jarak antar sel. 
+.form-table input[type="text"] dan .form-table input[type="number"] -> Class yang mempengaruhi input dengan tipe "text" dan "number" yang berada dalam tabel form. Isi di dalamnya akan mempengaruhi tampilan input tersebut.
+.form-table input[type="submit"] -> Selector yang mempengaruhi tombol submit yang berada dalam tabel form. Properti-properti di dalamnya akan mempengaruhi tampilan tombol submit.
+.form-table input[type="submit"]:hover -> Selector yang mempengaruhi tombol submit saat mouse diarahkan ke atasnya (hover). Properti-properti di dalamnya akan mempengaruhi tampilan tombol submit saat dihover.
+
+# HAlAMAN INVENTORY
+Pada halaman inventory atau main.html. Saya mengubah tampilan tabel menjadi lebih berwarna. Untuk selector yang saya gunakan adalah sebagai berikut :
+- body -> Elemen <body> ini akan mempengaruhi tampilan seluruh halaman, termasuk properti seperti font-family, margin, padding, dan background-color.
+- header -> Selector untuk elemen <header> yang mempengaruhi tampilan bagian header. Properti seperti background-color, color, text-align, padding, max-width, margin, dan border-radius digunakan untuk mengatur tampilan header.
+- .container -> class yang mempengaruhi elemen dengan class "container". Properti padding dan text-align digunakan untuk mengatur tampilan konten dalam kontainer.
+- table -> Selector untuk elemen <table> yang mempengaruhi tampilan tabel. Properti width, border-collapse, dan table-layout digunakan untuk mengatur tampilan tabel.
+- th dan td -> Selector untuk elemen <th> (header kolom) dan <td> (sel) dalam tabel. Properti-properti seperti border, padding, text-align, background-color, dan color digunakan untuk mengatur tampilan header kolom dan sel dalam tabel.
+- tr -> Selector untuk elemen <tr> (baris) dalam tabel. Properti padding dan background-color digunakan untuk mengatur tampilan baris dalam tabel.
+
+Lalu saya juga menggunakan menambahkan bootstrap pada main.html. Saya menggunakannya di bagian navbar dan dropdown edit product. Untuk di navbar saya menambahkan fungsi untuk menampilkan nama user, edit product, dan log out. Untuk di drop-down saya menggunakannya pada bagian edit yang memunculkan fungsi tambah, kurang, hapus, dan edit produk.  
+
 
 ## REFERENSI
 https://www.petanikode.com/css-selektor/

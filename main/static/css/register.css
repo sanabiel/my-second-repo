@@ -13,14 +13,6 @@
     background-color: #ffc068;
     border-radius: 50px;
   }
-  
-  /* .h1 {
-    font-size: 36px;
-    color: #000000; 
-    border-bottom: 2px solid #3498db; 
-    padding-bottom: 10px; 
-    margin-bottom: 20px; 
-  } */
 
   .login h1 {
     text-align: center;
@@ -35,23 +27,19 @@
 
   }
   
-  /* Gaya untuk tabel form */
   .login table {
     width: 100%;
   }
   
-  /* Gaya untuk label form */
   .login table td:first-child {
     text-align: right;
     padding-right: 10px;
   }
   
-  /* Gaya untuk input form */
   .login table input {
     width: 80%;
   }
   
-  /* Gaya untuk tombol submit */
   .login table input[type="submit"] {
     width: auto;
     background-color: #ff4040;
@@ -60,7 +48,6 @@
     padding: 5px 10px;
   }
   
-  /* Gaya untuk pesan */
   .login ul {
     list-style-type: none;
   }
