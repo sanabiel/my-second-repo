@@ -82,10 +82,12 @@
     <h1>❤️Shop The Flop❤️</h1>
 
     <h3>Total Produk : {{ total_products }}</h3>
+    </header>
 
-</header>
+
     <div class="container">
-        <table>
+      <table id="product_table"></table>
+        <!-- <table>
             <tr>
                 <th>Name</th>
                 <th>Amount</th>
@@ -116,18 +118,127 @@
                     </td>
                 </tr>
             {% endfor %}
-        </table>
-        <h5> </h5>
-        <p class="d-inline-flex gap-1">
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Last Login
-          </a>
-        </p>
-        <div class="collapse" id="collapseExample">
+        </table> -->
+        <div class="cardss" style="display: grid;grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 20px; margin: 40px; justify-content: center; justify-items: center; padding-bottom: 20px;">
+          {% for product in products %}
+          <div class="card" style="width: 18rem;">
+              <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-title">Amount  : {{ product.amount }}</p>
+              <p class="card-title">Price   : {{ product.price }}</p>
+              <p class="card-text">{{ product.description }}</p>
+              <a href="{% url 'main:edit_product' product.pk %}" class="btn btn-sm btn-primary">Edit</a>
+              <a href="{% url 'main:delete_product' product.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+          <p class="d-inline-flex gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Last Login
+            </a>
+          </p>
+        </div>
+        
+        <div class="collapse mt-3" id="collapseExample">
           <div class="card card-body">
-          Sesi Terakhir login : {{ last_login }}
+            Sesi Terakhir login : {{ last_login }}
           </div>
         </div>
-        <br />
-        </a>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                      <label for="price" class="col-form-label">Amount:</label>
+                      <input type="number" class="form-control" id="amount" name="amount"></input>
+                  </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="price" name="price"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-3">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+</div>
+
+<script>
+  async function getProducts() {
+      return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+  }
+  async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+            <th>Settings</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.price}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+            <td>
+              <button class="btn btn-primary" onclick="editProduct(${item.pk})">Edit</button>
+              <button class="btn btn-danger" onclick="deleteProduct(${item.pk})">Delete</button>
+            </td>
+          </tr>` 
+        })
+        
+        document.getElementById("product_table").innerHTML = htmlString
+    }
+
+    refreshProducts()
+
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+    function editProduct(pk) {
+    window.location.href = `/edit-product/${pk}`; 
+    }
+
+    function deleteProduct(pk) {
+      window.location.href = `/delete/${pk}`;  
+    }
+</script>
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import *
 from main.forms import ProductForm
 from django.urls import reverse
 from main.models import Product
@@ -7,24 +7,25 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages  
+from django.contrib import messages 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/login')
 def show_main(request):
     products = Product.objects.filter(user=request.user)
 
     context = {
-        'name': request.user.username,
-        'class': 'PBP F',
+        'name': request.user.username, # Nama kamu
+        'class': 'PBP F', # Kelas PBP kamu
         'products': products,
         'total_products': products.__len__(),
         'last_login': request.COOKIES['last_login'],
+
     }
 
     return render(request, "main.html", context)
@@ -33,10 +34,10 @@ def create_product(request):
     form = ProductForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-     product = form.save(commit=False)
-     product.user = request.user
-     product.save()
-     return HttpResponseRedirect(reverse('main:show_main'))
+        product = form.save(commit=False)
+        product.user = request.user
+        product.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
 
     context = {'form': form}
     return render(request, "create_product.html", context)
@@ -90,6 +91,49 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get data berdasarkan ID
+    product = Product.objects.get(pk = id)
+    # Hapus data
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def get_product_json(request):
+    product_item = Product.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Product(name=name, price=price, amount=amount, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
 def increase_amount(request, id):
     product = Product.objects.filter(user=request.user).filter(pk=id).first()
     # "+1" Button clicked --> Increment amount by 1
@@ -106,27 +150,8 @@ def decrease_amount(request, id):
     if product.amount == 0: # jika produk sudah habis = delete
             product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
-        
-    # "Delete Product" Button clicked --> Delete the product
-def delete_product(request, id):
-    product = Product.objects.filter(user=request.user).filter(pk=id).first()
-    product.delete()
-    return HttpResponseRedirect(reverse('main:show_main'))
 
-def edit_product(request, id):
-    # Get product berdasarkan ID
-    product = Product.objects.get(pk = id)
 
-    # Set product sebagai instance dari form
-    form = ProductForm(request.POST or None, instance=product)
-
-    if form.is_valid() and request.method == "POST":
-        # Simpan form dan kembali ke halaman awal
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    context = {'form': form}
-    return render(request, "edit_product.html", context)
 
 
 
