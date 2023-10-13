@@ -452,7 +452,7 @@ Jika proyek berfokus pada efisiensi dan kecepatan, serta ingin menggunakan tekno
         ```
 - [ ] Melakukan perintah `collectstatic`
     - Menjalankan `python manage.py collectstatic`
-    - Setelah itu, seluruh file static dari aplikasi akan terkumpul di folder static
+    - Setelah itu, seluruh file static dari aplikasi akan terkumpul di dalam folder static
 
 
 
