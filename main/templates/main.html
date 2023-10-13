@@ -1,6 +1,82 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+{% endblock meta %}
 
 {% block content %}
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 2;
+    background-color: #f4f4f4;
+  }
+  header {
+    background-color: #3085C3;
+    color: white;
+    text-align: center;
+    padding: 1%;
+    max-width: 50%;
+    margin: 20px auto 10px; /* Memberi jarak di bagian bawah header dan menengahkan header */
+    border-radius: 80px; /* Untuk membulatkan sudut-sudut header */
+  }
+  .container {
+    padding: 10px;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    table-layout: auto ;
+  }
+  table, th, td {
+    border: 2px solid rgb(255, 255, 255);
+  }
+  th, td {
+    padding: 8px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  tr {
+    padding: 2px;
+    background-color: #FAF2D3;
+    text-align: center;
+  }
+  th {
+    background-color: #F4E869;
+    color: rgb(0, 0, 0);
+  }
+  tr:last-child {
+    background-color: #28a745; /* Warna hijau untuk latar belakang */
+    color: white; /* Warna teks menjadi putih agar terlihat kontras */
+  }
+
+  .btn-add-product {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color: #3498db; /* Button color */
+    color: white; /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .btn-add-product:hover {
+    background-color: #2980b9; /* Change color on hover */
+  }
+
+
+</style>
+</head>
 <nav class="navbar navbar-expand-lg" style="background-color: #faa215;">
   <div class="container">
     <a class="navbar-brand" href="#" style="color: #f4f4f4;">
@@ -23,133 +99,51 @@
   </div>
 </nav>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SHOPTHEFLOP</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 2;
-      background-color: #f4f4f4;
-    }
-    header {
-      background-color: #3085C3;
-      color: white;
-      text-align: center;
-      padding: 1%;
-      max-width: 50%;
-      margin: 20px auto 10px; /* Memberi jarak di bagian bawah header dan menengahkan header */
-      border-radius: 80px; /* Untuk membulatkan sudut-sudut header */
-    }
-    .container {
-      padding: 10px;
-      text-align: center;
-    }
-    table {
-      width: 100%;
-      border-collapse: separate;
-      table-layout: auto ;
-    }
-    table, th, td {
-      border: 2px solid rgb(255, 255, 255);
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-      border-radius: 10px;
-    }
-    tr {
-      padding: 2px;
-      background-color: #FAF2D3;
-      text-align: center;
-    }
-    th {
-      background-color: #F4E869;
-      color: rgb(0, 0, 0);
-    }
-    tr:last-child {
-      background-color: #28a745; /* Warna hijau untuk latar belakang */
-      color: white; /* Warna teks menjadi putih agar terlihat kontras */
-    }
-  </style>
-</head>
-<body>
-    <header>
-    <h1>❤️Shop The Flop❤️</h1>
-
-    <h3>Total Produk : {{ total_products }}</h3>
-    </header>
-
-
-    <div class="container">
-      <table id="product_table"></table>
-        <!-- <table>
-            <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Date Added</th>
-            </tr>
-                
-            {% for product in products %}
-                <tr>
-                    <td>{{product.name}}</td>
-                    <td>{{product.amount}}</td>
-                    <td>{{product.price}}</td>
-                    <td>{{product.description}}</td>
-                    <td>{{product.date_added}}</td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Edit
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="{% url 'main:increase_amount' product.id %}">Tambah</a></li>
-                          <li><a class="dropdown-item" href="{% url 'main:decrease_amount' product.id %}">Kurang</a></li>
-                          <li><a class="dropdown-item" href="{% url 'main:delete_product' product.id %}">Hapus</a></li>
-                          <li><a class="dropdown-item" href="{% url 'main:edit_product' product.pk %}">Edit</a></li>
-                        </ul>
-                      </div> 
-                    </td>
-                </tr>
-            {% endfor %}
-        </table> -->
-        <div class="cardss" style="display: grid;grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 20px; margin: 40px; justify-content: center; justify-items: center; padding-bottom: 20px;">
-          {% for product in products %}
-          <div class="card" style="width: 18rem;">
-              <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-title">Amount  : {{ product.amount }}</p>
-              <p class="card-title">Price   : {{ product.price }}</p>
-              <p class="card-text">{{ product.description }}</p>
-              <a href="{% url 'main:edit_product' product.pk %}" class="btn btn-sm btn-primary">Edit</a>
-              <a href="{% url 'main:delete_product' product.pk %}" class="btn btn-sm btn-danger">Delete</a>
-        
-              </div>
-          </div>
-          {% endfor %}
+<!-- <<div id="product_card" class="cardss" style="display: grid;grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 20px; margin: 40px; justify-content: center; justify-items: center; padding-bottom: 20px;">
+  {% for product in products %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">Jumlah : {{ product.amount }}</p>
+        <p class="card-text">Rp{{ product.price }}</p>
+        <p class="card-text">{{ product.date_added }}</p>
+        <p class="card-text">{{ product.description }}</p>
+        <div class="card-actions">
         </div>
+      </div>
+    </div>
+  {% endfor %}
+</div> -->
 
-        <div class="d-flex justify-content-center mt-3">
-          <p class="d-inline-flex gap-1">
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-              Last Login
-            </a>
-          </p>
-        </div>
-        
-        <div class="collapse mt-3" id="collapseExample">
-          <div class="card card-body">
-            Sesi Terakhir login : {{ last_login }}
+<header>
+  <h1>❤️Shop The Flop❤️</h1>
+
+  <h3>Total Produk : {{ total_products }}</h3>
+  </header>
+
+  <div id="product_card" class="cardss" style="display: grid;grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 20px; margin: 40px; justify-content: center; justify-items: center; padding-bottom: 20px;">
+    {% for product in products %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">Jumlah : {{ product.amount }}</p>
+          <p class="card-text">Rp{{ product.price }}</p>
+          <p class="card-text">{{ product.date_added }}</p>
+          <p class="card-text">{{ product.description }}</p>
+          <div class="card-actions">
           </div>
         </div>
+      </div>
+    {% endfor %}
+  </div>
+  
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <table id="product_table"></table>
+
+  <button type="button" class="btn btn-add-product" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -164,12 +158,12 @@
                         <input type="text" class="form-control" id="name" name="name"></input>
                     </div>
                     <div class="mb-3">
-                      <label for="price" class="col-form-label">Amount:</label>
-                      <input type="number" class="form-control" id="amount" name="amount"></input>
-                  </div>
-                    <div class="mb-3">
                         <label for="price" class="col-form-label">Price:</label>
                         <input type="number" class="form-control" id="price" name="price"></input>
+                    </div>
+                    <div class="mb-3">
+                      <label for="price" class="col-form-label">Amount:</label>
+                      <input type="number" class="form-control" id="amount" name="amount"></input>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="col-form-label">Description:</label>
@@ -184,8 +178,13 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-center mt-3">
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+
+<br />
+
+<div class="collapse mt-3" id="collapseExample">
+  <div class="card card-body">
+    Sesi Terakhir login : {{ last_login }}
+  </div>
 </div>
 
 <script>
@@ -212,7 +211,7 @@
             <td>${item.fields.date_added}</td>
             <td>
               <button class="btn btn-primary" onclick="editProduct(${item.pk})">Edit</button>
-              <button class="btn btn-danger" onclick="deleteProduct(${item.pk})">Delete</button>
+              <button class="btn btn-danger" data-url="{% url 'main:delete_item_ajax' 123 %}" onclick="deleteProduct(this, ${item.pk})">Delete</button>
             </td>
           </tr>` 
         })
@@ -226,7 +225,7 @@
         fetch("{% url 'main:add_product_ajax' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
-        }).then(refreshProducts)
+        }).then(refreshProducts).then(refreshCard)
 
         document.getElementById("form").reset()
         return false
@@ -237,8 +236,38 @@
     window.location.href = `/edit-product/${pk}`; 
     }
 
-    function deleteProduct(pk) {
-      window.location.href = `/delete/${pk}`;  
-    }
+    function deleteProduct(button, id) {
+            let url = button.getAttribute('data-url').replace('123', id);
+            fetch(url, {
+                method: "DELETE",
+            }).then(refreshProducts).then(refreshCard)
+        }
+
+    async function refreshCard() {
+      const productCard = document.getElementById("product_card");
+      productCard.innerHTML = "";   
+      const products = await getProducts();
+      let htmlString = "";
+
+      products.forEach((item) => {
+        htmlString += `
+        <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 20px; margin-bottom: 20px; background-color: lightblue; color: black;">
+          <h4 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;">${item.fields.name}</h4>
+          <p style="font-size: 1rem; margin-bottom: 10px;">Jumlah: ${item.fields.amount}</p>
+          <p style="font-size: 1rem; margin-bottom: 10px;">Harga: Rp${item.fields.price}</p>
+          <p style="font-size: 1rem; margin-bottom: 10px;">Tanggal Ditambahkan: ${item.fields.date_added}</p>
+          <hr style="border-top: 2px solid #ccc; margin: 20px 0; color: black">
+          <p style="font-size: 1rem;">Deskripsi: ${item.fields.description}</p>
+          <div style="text-align: center; margin-top: 15px;">
+          </div>
+        </div>`;
+      });
+
+      document.getElementById("product_card").innerHTML = htmlString;
+  }
+
+  refreshCard();
+
 </script>
+
 {% endblock content %}

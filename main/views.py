@@ -1,18 +1,14 @@
-from django.shortcuts import render
-from django.http import *
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from main.forms import ProductForm
 from django.urls import reverse
-from main.models import Product
-from django.http import HttpResponse
 from django.core import serializers
-from django.shortcuts import redirect
+from main.models import Product
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages 
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.contrib import messages  
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/login')
@@ -122,8 +118,8 @@ def get_product_json(request):
 def add_product_ajax(request):
     if request.method == 'POST':
         name = request.POST.get("name")
-        amount = request.POST.get("amount")
         price = request.POST.get("price")
+        amount = request.POST.get("amount")
         description = request.POST.get("description")
         user = request.user
 
@@ -132,6 +128,14 @@ def add_product_ajax(request):
 
         return HttpResponse(b"CREATED", status=201)
 
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_item_ajax(request, id):
+    if request.method == 'DELETE':
+        product = get_object_or_404(Product, pk=id)
+        product.delete()
+        return HttpResponse(b"DELETED", status=200)
     return HttpResponseNotFound()
 
 def increase_amount(request, id):
