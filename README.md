@@ -296,3 +296,163 @@ Berikut adalah beberapa perbedaan dan pertimbangan dalam memilih salah satu dari
 
 Jika proyek berfokus pada efisiensi dan kecepatan, serta ingin menggunakan teknologi terbaru dan lebih ringan, Fetch API adalah pilihan yang baik.
 
+# Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+- [ ] AJAX GET
+    - [ ] Ubahlah kode cards data item agar dapat mendukung AJAX GET.
+        - Menambahkan fungsi baru berikut ke dalam views.py dan buat filter sehingga setiap user memiliki produk yg unik:
+        ```python
+        def get_product_json(request):
+            product_item = Product.objects.filter(user=request.user)
+            return HttpResponse(serializers.serialize('json', product_item))
+        ```
+    - [ ] Lakukan pengambilan task menggunakan AJAX GET.
+        - Menambahkan kode berikut ke section script di main.html:
+        ```python
+        async function getProducts() {
+            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+        }
+        ```
+
+- [ ] AJAX POST
+    - [ ] Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan item.
+        - Menambahkan modal dengan form pada main.html untuk menerima input user berupa atribut dari product yang ingin ditambahkan:
+        ```html
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form" onsubmit="return false;">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name"></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="col-form-label">Price:</label>
+                                <input type="number" class="form-control" id="price" name="price"></input>
+                            </div>
+                            <div class="mb-3">
+                            <label for="price" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="col-form-label">Description:</label>
+                                <textarea class="form-control" id="description" name="description"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        ```
+    - [ ] Buatlah fungsi view baru untuk menambahkan item baru ke dalam basis data.
+        - Pada section script di views.py, tambahkan function berikut untuk get-product, menambahkan product baru, increment amount product, dan decrement amount product:
+        ```python
+        def get_product_json(request):
+            product_item = Product.objects.filter(user=request.user)
+            return HttpResponse(serializers.serialize('json', product_item))
+
+        @csrf_exempt
+        def create_ajax(request):
+            if request.method == 'POST':
+                name = request.POST.get("name")
+                price = request.POST.get("price")
+                amount = request.POST.get("amount")
+                description = request.POST.get("description")
+                user = request.user
+
+                new_product = Product(name=name, price=price, amount=amount, description=description, user=user)
+                new_product.save()
+
+                return HttpResponse(b"CREATED", status=201)
+
+            return HttpResponseNotFound()
+
+        @csrf_exempt
+        def delete_item_ajax(request, id):
+            if request.method == 'DELETE':
+                product = get_object_or_404(Product, pk=id)
+                product.delete()
+                return HttpResponse(b"DELETED", status=200)
+            return HttpResponseNotFound()
+        ```
+    - [ ] Buatlah path /create-ajax/ yang mengarah ke fungsi view yang baru kamu buat.
+        - Tambahkan potongan kode berikut ke urlpatterns di urls.py untuk routing get-product menambahkan product baru dan delete product
+        ```python
+        ...
+        path('get-product/', get_product_json, name='get_product_json'),
+        path('create-ajax/', create_ajax, name='create_ajax'),
+        path('delete-item-ajax/<int:id>/', delete_item_ajax, name='delete_item_ajax'),
+        ...
+        ```
+    - [ ] Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.
+        - Menambahkan potongan kode berikut ke section script pada main.html untuk menerapkan asynchronous dan event-handler pada button add product dan delete.
+        ```html
+        ...
+        function addProduct() {
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts).then(refreshCard)
+
+        document.getElementById("form").reset()
+        return false
+        }
+
+        document.getElementById("button_add").onclick = addProduct
+        function editProduct(pk) {
+        window.location.href = `/edit-product/${pk}`; 
+        }
+
+        function deleteProduct(button, id) {
+                let url = button.getAttribute('data-url').replace('123', id);
+                fetch(url, {
+                    method: "DELETE",
+                }).then(refreshProducts).then(refreshCard)
+        }
+        ```
+    - [ ] Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar item terbaru tanpa reload halaman utama secara keseluruhan.
+        - Menambahkan function refreshProduct agar perubahan pada product dapat terjadi secara asynchronous
+        ```html
+        async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+            <th>Settings</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.price}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+            <td>
+              <button class="btn btn-primary" onclick="editProduct(${item.pk})">Edit</button>
+              <button class="btn btn-danger" data-url="{% url 'main:delete_item_ajax' 123 %}" onclick="deleteProduct(this, ${item.pk})">Delete</button>
+            </td>
+          </tr>` 
+        })
+        
+        document.getElementById("product_table").innerHTML = htmlString
+        }
+        ```
+- [ ] Melakukan perintah `collectstatic`
+    - Menjalankan `python manage.py collectstatic`
+    - Setelah itu, seluruh file static dari aplikasi akan terkumpul di folder static
+
+
+

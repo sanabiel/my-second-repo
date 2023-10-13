@@ -222,7 +222,7 @@
     refreshProducts()
 
     function addProduct() {
-        fetch("{% url 'main:add_product_ajax' %}", {
+        fetch("{% url 'main:create_ajax' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
         }).then(refreshProducts).then(refreshCard)

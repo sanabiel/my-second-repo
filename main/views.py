@@ -115,7 +115,7 @@ def get_product_json(request):
     return HttpResponse(serializers.serialize('json', product_item))
 
 @csrf_exempt
-def add_product_ajax(request):
+def create_ajax(request):
     if request.method == 'POST':
         name = request.POST.get("name")
         price = request.POST.get("price")
